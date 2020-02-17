@@ -1,0 +1,274 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "**Somebody come up with a research question I'm too lazy.**  \n",
+    "~ Alex"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 2,
+   "metadata": {
+    "scrolled": true
+   },
+   "outputs": [
+    {
+     "name": "stderr",
+     "output_type": "stream",
+     "text": [
+      "Registered S3 methods overwritten by 'ggplot2':\n",
+      "  method         from \n",
+      "  [.quosures     rlang\n",
+      "  c.quosures     rlang\n",
+      "  print.quosures rlang\n",
+      "Registered S3 method overwritten by 'rvest':\n",
+      "  method            from\n",
+      "  read_xml.response xml2\n",
+      "── \u001b[1mAttaching packages\u001b[22m ─────────────────────────────────────── tidyverse 1.2.1 ──\n",
+      "\u001b[32m✔\u001b[39m \u001b[34mggplot2\u001b[39m 3.1.1       \u001b[32m✔\u001b[39m \u001b[34mpurrr  \u001b[39m 0.3.2  \n",
+      "\u001b[32m✔\u001b[39m \u001b[34mtibble \u001b[39m 2.1.1       \u001b[32m✔\u001b[39m \u001b[34mdplyr  \u001b[39m 0.8.0.\u001b[31m1\u001b[39m\n",
+      "\u001b[32m✔\u001b[39m \u001b[34mtidyr  \u001b[39m 0.8.3       \u001b[32m✔\u001b[39m \u001b[34mstringr\u001b[39m 1.4.0  \n",
+      "\u001b[32m✔\u001b[39m \u001b[34mreadr  \u001b[39m 1.3.1       \u001b[32m✔\u001b[39m \u001b[34mforcats\u001b[39m 0.4.0  \n",
+      "── \u001b[1mConflicts\u001b[22m ────────────────────────────────────────── tidyverse_conflicts() ──\n",
+      "\u001b[31m✖\u001b[39m \u001b[34mdplyr\u001b[39m::\u001b[32mfilter()\u001b[39m masks \u001b[34mstats\u001b[39m::filter()\n",
+      "\u001b[31m✖\u001b[39m \u001b[34mdplyr\u001b[39m::\u001b[32mlag()\u001b[39m    masks \u001b[34mstats\u001b[39m::lag()\n"
+     ]
+    }
+   ],
+   "source": [
+    "# Load things that we need\n",
+    "library(tidyverse)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 3,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stderr",
+     "output_type": "stream",
+     "text": [
+      "Parsed with column specification:\n",
+      "cols(\n",
+      "  .default = col_double()\n",
+      ")\n",
+      "See spec(...) for full column specifications.\n"
+     ]
+    },
+    {
+     "data": {
+      "text/html": [
+       "<table>\n",
+       "<caption>A tibble: 6 × 31</caption>\n",
+       "<thead>\n",
+       "\t<tr><th scope=col>having_IP_address</th><th scope=col>URL_Length</th><th scope=col>Shortening_Service</th><th scope=col>having_At_Symbol</th><th scope=col>double_slash_redirecting</th><th scope=col>Prefix_Suffix</th><th scope=col>having_Sub_Domain</th><th scope=col>SSLfinal_State</th><th scope=col>Domain_registration_length</th><th scope=col>Favicon</th><th scope=col>⋯</th><th scope=col>popUpWindow</th><th scope=col>Iframe</th><th scope=col>age_of_domain</th><th scope=col>DNSRecord</th><th scope=col>web_traffic</th><th scope=col>Page_Rank</th><th scope=col>Google_Index</th><th scope=col>Links_pointing_to_page</th><th scope=col>Statistical_report</th><th scope=col>Result</th></tr>\n",
+       "\t<tr><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>⋯</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th></tr>\n",
+       "</thead>\n",
+       "<tbody>\n",
+       "\t<tr><td>-1</td><td>1</td><td> 1</td><td>1</td><td>-1</td><td>-1</td><td>-1</td><td>-1</td><td>-1</td><td>1</td><td>⋯</td><td> 1</td><td>1</td><td>-1</td><td>-1</td><td>-1</td><td>-1</td><td>1</td><td> 1</td><td>-1</td><td>-1</td></tr>\n",
+       "\t<tr><td> 1</td><td>1</td><td> 1</td><td>1</td><td> 1</td><td>-1</td><td> 0</td><td> 1</td><td>-1</td><td>1</td><td>⋯</td><td> 1</td><td>1</td><td>-1</td><td>-1</td><td> 0</td><td>-1</td><td>1</td><td> 1</td><td> 1</td><td>-1</td></tr>\n",
+       "\t<tr><td> 1</td><td>0</td><td> 1</td><td>1</td><td> 1</td><td>-1</td><td>-1</td><td>-1</td><td>-1</td><td>1</td><td>⋯</td><td> 1</td><td>1</td><td> 1</td><td>-1</td><td> 1</td><td>-1</td><td>1</td><td> 0</td><td>-1</td><td>-1</td></tr>\n",
+       "\t<tr><td> 1</td><td>0</td><td> 1</td><td>1</td><td> 1</td><td>-1</td><td>-1</td><td>-1</td><td> 1</td><td>1</td><td>⋯</td><td> 1</td><td>1</td><td>-1</td><td>-1</td><td> 1</td><td>-1</td><td>1</td><td>-1</td><td> 1</td><td>-1</td></tr>\n",
+       "\t<tr><td> 1</td><td>0</td><td>-1</td><td>1</td><td> 1</td><td>-1</td><td> 1</td><td> 1</td><td>-1</td><td>1</td><td>⋯</td><td>-1</td><td>1</td><td>-1</td><td>-1</td><td> 0</td><td>-1</td><td>1</td><td> 1</td><td> 1</td><td> 1</td></tr>\n",
+       "\t<tr><td>-1</td><td>0</td><td>-1</td><td>1</td><td>-1</td><td>-1</td><td> 1</td><td> 1</td><td>-1</td><td>1</td><td>⋯</td><td> 1</td><td>1</td><td> 1</td><td> 1</td><td> 1</td><td>-1</td><td>1</td><td>-1</td><td>-1</td><td> 1</td></tr>\n",
+       "</tbody>\n",
+       "</table>\n"
+      ],
+      "text/latex": [
+       "A tibble: 6 × 31\n",
+       "\\begin{tabular}{lllllllllllllllllllll}\n",
+       " having\\_IP\\_address & URL\\_Length & Shortening\\_Service & having\\_At\\_Symbol & double\\_slash\\_redirecting & Prefix\\_Suffix & having\\_Sub\\_Domain & SSLfinal\\_State & Domain\\_registration\\_length & Favicon & ⋯ & popUpWindow & Iframe & age\\_of\\_domain & DNSRecord & web\\_traffic & Page\\_Rank & Google\\_Index & Links\\_pointing\\_to\\_page & Statistical\\_report & Result\\\\\n",
+       " <dbl> & <dbl> & <dbl> & <dbl> & <dbl> & <dbl> & <dbl> & <dbl> & <dbl> & <dbl> & ⋯ & <dbl> & <dbl> & <dbl> & <dbl> & <dbl> & <dbl> & <dbl> & <dbl> & <dbl> & <dbl>\\\\\n",
+       "\\hline\n",
+       "\t -1 & 1 &  1 & 1 & -1 & -1 & -1 & -1 & -1 & 1 & ⋯ &  1 & 1 & -1 & -1 & -1 & -1 & 1 &  1 & -1 & -1\\\\\n",
+       "\t  1 & 1 &  1 & 1 &  1 & -1 &  0 &  1 & -1 & 1 & ⋯ &  1 & 1 & -1 & -1 &  0 & -1 & 1 &  1 &  1 & -1\\\\\n",
+       "\t  1 & 0 &  1 & 1 &  1 & -1 & -1 & -1 & -1 & 1 & ⋯ &  1 & 1 &  1 & -1 &  1 & -1 & 1 &  0 & -1 & -1\\\\\n",
+       "\t  1 & 0 &  1 & 1 &  1 & -1 & -1 & -1 &  1 & 1 & ⋯ &  1 & 1 & -1 & -1 &  1 & -1 & 1 & -1 &  1 & -1\\\\\n",
+       "\t  1 & 0 & -1 & 1 &  1 & -1 &  1 &  1 & -1 & 1 & ⋯ & -1 & 1 & -1 & -1 &  0 & -1 & 1 &  1 &  1 &  1\\\\\n",
+       "\t -1 & 0 & -1 & 1 & -1 & -1 &  1 &  1 & -1 & 1 & ⋯ &  1 & 1 &  1 &  1 &  1 & -1 & 1 & -1 & -1 &  1\\\\\n",
+       "\\end{tabular}\n"
+      ],
+      "text/markdown": [
+       "\n",
+       "A tibble: 6 × 31\n",
+       "\n",
+       "| having_IP_address &lt;dbl&gt; | URL_Length &lt;dbl&gt; | Shortening_Service &lt;dbl&gt; | having_At_Symbol &lt;dbl&gt; | double_slash_redirecting &lt;dbl&gt; | Prefix_Suffix &lt;dbl&gt; | having_Sub_Domain &lt;dbl&gt; | SSLfinal_State &lt;dbl&gt; | Domain_registration_length &lt;dbl&gt; | Favicon &lt;dbl&gt; | ⋯ ⋯ | popUpWindow &lt;dbl&gt; | Iframe &lt;dbl&gt; | age_of_domain &lt;dbl&gt; | DNSRecord &lt;dbl&gt; | web_traffic &lt;dbl&gt; | Page_Rank &lt;dbl&gt; | Google_Index &lt;dbl&gt; | Links_pointing_to_page &lt;dbl&gt; | Statistical_report &lt;dbl&gt; | Result &lt;dbl&gt; |\n",
+       "|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|\n",
+       "| -1 | 1 |  1 | 1 | -1 | -1 | -1 | -1 | -1 | 1 | ⋯ |  1 | 1 | -1 | -1 | -1 | -1 | 1 |  1 | -1 | -1 |\n",
+       "|  1 | 1 |  1 | 1 |  1 | -1 |  0 |  1 | -1 | 1 | ⋯ |  1 | 1 | -1 | -1 |  0 | -1 | 1 |  1 |  1 | -1 |\n",
+       "|  1 | 0 |  1 | 1 |  1 | -1 | -1 | -1 | -1 | 1 | ⋯ |  1 | 1 |  1 | -1 |  1 | -1 | 1 |  0 | -1 | -1 |\n",
+       "|  1 | 0 |  1 | 1 |  1 | -1 | -1 | -1 |  1 | 1 | ⋯ |  1 | 1 | -1 | -1 |  1 | -1 | 1 | -1 |  1 | -1 |\n",
+       "|  1 | 0 | -1 | 1 |  1 | -1 |  1 |  1 | -1 | 1 | ⋯ | -1 | 1 | -1 | -1 |  0 | -1 | 1 |  1 |  1 |  1 |\n",
+       "| -1 | 0 | -1 | 1 | -1 | -1 |  1 |  1 | -1 | 1 | ⋯ |  1 | 1 |  1 |  1 |  1 | -1 | 1 | -1 | -1 |  1 |\n",
+       "\n"
+      ],
+      "text/plain": [
+       "  having_IP_address URL_Length Shortening_Service having_At_Symbol\n",
+       "1 -1                1           1                 1               \n",
+       "2  1                1           1                 1               \n",
+       "3  1                0           1                 1               \n",
+       "4  1                0           1                 1               \n",
+       "5  1                0          -1                 1               \n",
+       "6 -1                0          -1                 1               \n",
+       "  double_slash_redirecting Prefix_Suffix having_Sub_Domain SSLfinal_State\n",
+       "1 -1                       -1            -1                -1            \n",
+       "2  1                       -1             0                 1            \n",
+       "3  1                       -1            -1                -1            \n",
+       "4  1                       -1            -1                -1            \n",
+       "5  1                       -1             1                 1            \n",
+       "6 -1                       -1             1                 1            \n",
+       "  Domain_registration_length Favicon ⋯ popUpWindow Iframe age_of_domain\n",
+       "1 -1                         1       ⋯  1          1      -1           \n",
+       "2 -1                         1       ⋯  1          1      -1           \n",
+       "3 -1                         1       ⋯  1          1       1           \n",
+       "4  1                         1       ⋯  1          1      -1           \n",
+       "5 -1                         1       ⋯ -1          1      -1           \n",
+       "6 -1                         1       ⋯  1          1       1           \n",
+       "  DNSRecord web_traffic Page_Rank Google_Index Links_pointing_to_page\n",
+       "1 -1        -1          -1        1             1                    \n",
+       "2 -1         0          -1        1             1                    \n",
+       "3 -1         1          -1        1             0                    \n",
+       "4 -1         1          -1        1            -1                    \n",
+       "5 -1         0          -1        1             1                    \n",
+       "6  1         1          -1        1            -1                    \n",
+       "  Statistical_report Result\n",
+       "1 -1                 -1    \n",
+       "2  1                 -1    \n",
+       "3 -1                 -1    \n",
+       "4  1                 -1    \n",
+       "5  1                  1    \n",
+       "6 -1                  1    "
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    }
+   ],
+   "source": [
+    "# Get the data\n",
+    "# Brute force column names because I have no better solution\n",
+    "phishing_columns <- c(\"having_IP_address\",\n",
+    "                      \"URL_Length\",\n",
+    "                     \"Shortening_Service\",\n",
+    "                     \"having_At_Symbol\",\n",
+    "                     \"double_slash_redirecting\",\n",
+    "                     \"Prefix_Suffix\",\n",
+    "                     \"having_Sub_Domain\",\n",
+    "                     \"SSLfinal_State\",\n",
+    "                     \"Domain_registration_length\",\n",
+    "                     \"Favicon\",\n",
+    "                     \"port\",\n",
+    "                     \"HTTPS_token\",\n",
+    "                     \"Request_URL\",\n",
+    "                     \"URL_of_Anchor\",\n",
+    "                     \"Links_in_tags\",\n",
+    "                     \"SFH\",\n",
+    "                     \"Submitting_to_email\",\n",
+    "                     \"Abnormal_URL\",\n",
+    "                     \"Redirect\",\n",
+    "                     \"on_mouseover\",\n",
+    "                     \"RightClick\",\n",
+    "                     \"popUpWindow\",\n",
+    "                     \"Iframe\",\n",
+    "                     \"age_of_domain\",\n",
+    "                     \"DNSRecord\",\n",
+    "                     \"web_traffic\",\n",
+    "                     \"Page_Rank\",\n",
+    "                     \"Google_Index\",\n",
+    "                     \"Links_pointing_to_page\",\n",
+    "                     \"Statistical_report\",\n",
+    "                     \"Result\")\n",
+    "# Assign and display\n",
+    "phishing <- read_csv(\"https://archive.ics.uci.edu/ml/machine-learning-databases/00327/Training%20Dataset.arff\",\n",
+    "                    skip = 36,\n",
+    "                    col_names = phishing_columns)\n",
+    "head(phishing)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 4,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Turn result into factor\n",
+    "phishing_resfactored <- mutate(phishing, Result = as.factor(Result))"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Values in the file are interpreted as follows:  \n",
+    "\n",
+    "- having_IP_address: 1 if URL contains IP address rather than domain name, 0 otherwise\n",
+    "- URL_Length: 1 if URL is more than 75 characters in length, 0 if URL is between 54 and 75 characters in length, -1 otherwise\n",
+    "- Shortening_Service: 1 if a URL shortening service, such as TinyURL is used, -1 otherwise\n",
+    "- having_At_Symbol: 1 if URL has an @ symbol, -1 otherwise\n",
+    "- double_slash_redirecting: 1 if \"//\" occurs after position 7 in a URL, -1 otherwise\n",
+    "- Prefix_Suffix: 1 if URL contains \"-\", -1 otherwise\n",
+    "- having_Sub_Domain: -1 if portion of URL *BESIDES THE COUNTRY-CODE TOP-LEVEL DOMAINS* contains 1 \".\" character, 0 if it contains 2, 1 otherwise\n",
+    "- SSLfinal_state: -1 if https is used and certificate is trusted (trusted issuer, and at least one year old), 0 if https is used and certificate not trusted, 1 otherwise\n",
+    "- Domain_registration_length: 1 if domain expires in a year, -1 otherwise\n",
+    "- Favicon: 1 if Favicon loaded from external domain, -1 otherwise\n",
+    "- port: SEE DOC, INTERPRETATION UNCLEAR\n",
+    "- HTTPS_token: 1 if HTTP token in domain part of URL, -1 otherwise\n",
+    "- Request_URL: 1 if at least 61% of objects are loaded externally, 0 if between 61% and 22% objects are loaded externally, -1 otherwise\n",
+    "- URL_of_Anchor: 1 if URL anchor is greater than 67% of the total URL, 0 if URL anchor is between 67% and 31% of the total URL, -1 otherwise\n",
+    "- Links_in_tags: 1 if more than 81% of metadata tags contain links, 0 if between 81% and 17% of tags contain links, -1 otherwise\n",
+    "- SFH: 1 if SFH is \"about: blank\", 0 if SFH refers to different domain, -1 otherwise\n",
+    "- Submitting_to_email: 1 if \"mail()\" or \"mailto\" is used, -1 otherwise\n",
+    "- Abnormal_URL: 1 if URL does not contain host name, -1 otherwise\n",
+    "- Redirect: 1 if webpage redirects is greater than 3, 0 if between 2 or 3 redirects used, (-1 not present here)\n",
+    "- on_mouseover: 1 if mousing over a link on the site changes the status bar, -1 otherwise\n",
+    "- RightClick: 1 if right click disabled, -1 otherwise\n",
+    "- PopUpWindow: 1 if popup windows contain text fields, -1 otherwise\n",
+    "- Iframe: 1 if iframe used, -1 otherwise\n",
+    "- age_of_domain: 1 if domain is less than 6 months olds, -1 otherwise\n",
+    "- DNSRecord: 1 if no DNS record, -1 otherwise\n",
+    "- web_traffic: 1 if website is not found in Alexa database, 0 if ranked below is rated below 100000th in Alexa database, -1 otherwise\n",
+    "- Page_Rank: 1 if page rank is less than 0.2, -1 otherwise\n",
+    "- Google_Index: 1 if page is not indexed by Google, -1 otherwise\n",
+    "- Links_pointing_to_page: 1 if page has no external links leading to it, 0 if page has 1 or 2 external links leading to it, -1 otherwise\n",
+    "- Statistical_report: 1 if host belongs to top phishing IPs/domains, -1 otherwise\n",
+    "\n",
+    "Result: -1 is legitimate, 1 is phishing website."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "At this point we need a research question before we can do anything else so..."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "R",
+   "language": "R",
+   "name": "ir"
+  },
+  "language_info": {
+   "codemirror_mode": "r",
+   "file_extension": ".r",
+   "mimetype": "text/x-r-source",
+   "name": "R",
+   "pygments_lexer": "r",
+   "version": "3.6.2"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 4
+}
